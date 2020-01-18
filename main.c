@@ -33,10 +33,7 @@ void analyseText()
       {
         converted = (int)ch; // Convert char by char into (int) ASCII val. 
 
-        while(fscanf(f, "%d", &val) == 1)  // scan line by line return val 1 if num
-        {
-          summ += val;
-        }
+        while(fscanf(f, "%d", &val) == 1) { summ += val; } // Summ of all Numbers
 
         for(int i = 0; i < 26; i++) // Loop : alphabet size
         {
