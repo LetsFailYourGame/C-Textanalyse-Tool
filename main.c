@@ -1,87 +1,68 @@
 #include <stdio.h>
 
-//Filestrean for userinput
-char file_name;                     //file_name var. init.
-char *file_ptr = &file_name;        //pointer to file_name
+char file_name;
+char *file_ptr = &file_name;
 
 //Analyse vars.
-int letters[26];
-int summ = 0;
+int letters_count[26];
+int sum = 0;
 int val;
+
 
 void input_file_name()
 {
-  printf("Input Filename to read: ");       // print statement
-  scanf("%s", &file_name);                  // put user input into file_name
+  printf("Input Filename to read: ");
+  scanf("%s", &file_name);
 }
 
 void analyseText()
 {
-  // Init Vars.
   char ch;
   int converted;
 
-  FILE *f = fopen(file_ptr, "r");           // Init. file stream var.
+  FILE *f = fopen(file_ptr, "r");
 
-  // START ****************************************************************
-  
-  // ERROR handling
   if (f == NULL){ printf("\nERROR 404 : [File is not available]\n"); return; }
   else
   {
       printf("\n~ Reading: [ %s ]\n", file_ptr);
-
-      while ((ch = fgetc(f)) != EOF)        // While not End Of File read every char by char
+      while ((ch = fgetc(f)) != EOF)
       {
-        converted = (int)ch;                // Convert char by char into (int) ASCII val. 
+        converted = (int)ch;
 
-        while(fscanf(f, "%d", &val) == 1) { summ += val; } // Summ of all Numbers
+       while(fscanf(f, "%d", &val) == 1) { sum += val; }
 
-        for(int i = 0; i < 26; i++)                        // Loop : alphabet size
+        for(int i = 0; i < 26; i++)
         {
-          if(converted - (i+65) == 0 || converted - (i + 97) == 0) 
-          /*
-           Find letter in ASCII Table val. | i = pos of ASCII char.
-           e.g i = 0 = 65 = A, | i = 0 = 97 = a | same for 'a' = 97
-           Subtract converted char val. from i e.g char = 'A' -> 65 - (i=0 + 65) = 0
-           Save to pos[i] in array so we know i=0=A/a is on first pos in array e.g B/b is on pos[2] in array.
-          */ 
+          if(converted - (i+65) == 0 || converted - (i + 97) == 0)
           {
-              letters[i] += 1;                            // Add 1 to i pos.
+              letters_count[i] += 1;
           }
         }
-      }      
+      }
   }
-
-  // END ***************************************************************** 
-
-  //START ****************************************************************
-
+    float total_letters = 0.0f;
+    for(int i = 0; i < 26; i++) { total_letters += (float)letters_count[i]; } // Count of all numbers;
+    float one_percent = 1.0f / total_letters;
     printf("\n~ Saving results in [ output.txt ]\n");
-    
-    f = fopen("output.txt", "w");                        //change mode to write
 
-    // ERROR handling
+    f = fopen("output.txt", "w");
     if (f == NULL){ printf("\nERROR 405 : [Unable to create output File]\n"); return; }
-   
+
     else
     {
-      for (int i = 0; i < 26; i++)                      // Print every letter with count
+      for (int i = 0; i < 26; i++)
       {
-        fprintf(f, "%lc: [ %d ]\n", (char)i+97, letters[i]); 
+        fprintf(f, "%c:\t[ %d ]\t--> [ %.3f %% ]\n", (char)i+97, letters_count[i], (one_percent * (float)letters_count[i])*100 );
       }
-      
-      fprintf(f, "Summe aller Zahlen ist [ %d ]", summ);
-
+      fprintf(f, "\nSum of all Numbers [ %d ]", sum);
       fclose(f);                                        // Close Filestream
       printf("\nDone!\n");
     }
-    
-    //END ****************************************************************
 }
 
 
-int main(void) 
+int main(void)
 {
   input_file_name(); // Set file_name by User
 
