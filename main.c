@@ -28,7 +28,7 @@ void analyseText()
       printf("\n~ Reading: [ %s ]\n", file_ptr);
       while ((ch = fgetc(f)) != EOF)
       {
-        converted = (int)ch;
+       converted = (int)ch;
 
        while(fscanf(f, "%d", &val) == 1) { sum += val; }
 
@@ -42,7 +42,7 @@ void analyseText()
       }
   }
     float total_letters = 0.0f;
-    for(int i = 0; i < 26; i++) { total_letters += (float)letters_count[i]; } // Count of all numbers;
+    for(int i = 0; i < 26; i++) { total_letters += (float)letters_count[i]; }
     float one_percent = 1.0f / total_letters;
     printf("\n~ Saving results in [ output.txt ]\n");
 
@@ -56,7 +56,7 @@ void analyseText()
         fprintf(f, "%c:\t[ %d ]\t--> [ %.3f %% ]\n", (char)i+97, letters_count[i], (one_percent * (float)letters_count[i])*100 );
       }
       fprintf(f, "\nSum of all Numbers [ %d ]", sum);
-      fclose(f);                                        // Close Filestream
+      fclose(f);
       printf("\nDone!\n");
     }
 }
@@ -66,7 +66,7 @@ int main(void)
 {
   input_file_name(); // Set file_name by User
 
-  analyseText(); // Analyse text#
+  analyseText(); // Analyse text
 
   return 0;
 }
