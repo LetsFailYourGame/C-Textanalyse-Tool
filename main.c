@@ -2,8 +2,6 @@
 
 char file_name;
 char *file_ptr = &file_name;
-
-//Analyse vars.
 int letters_count[26];
 int sum = 0;
 int val;
