@@ -51,7 +51,7 @@ void analyseText()
     {
       for (int i = 0; i < 26; i++)
       {
-        fprintf(f, "%c:\t[ %d ]\t--> [ %.3f %% ]\n", (char)i+97, letters_count[i], (one_percent * (float)letters_count[i])*100 );
+        fprintf(f, "%c:\t[ %d ]\t--> [ %.2f %% ]\n", (char)i+97, letters_count[i], (one_percent * (float)letters_count[i])*100 );
       }
       fprintf(f, "\nSum of all Numbers [ %d ]", sum);
       fclose(f);
